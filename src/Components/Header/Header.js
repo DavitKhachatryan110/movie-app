@@ -67,7 +67,7 @@ const Header = (props) => {
     return (
         <div>
             <Navbar style={styles.Navbar} light expand="md">
-                <NavbarBrand href="/" style={styles.colorW}>reactstrap</NavbarBrand>
+                <NavbarBrand href="/" style={styles.colorW}>MovieApp</NavbarBrand>
                 <NavbarToggler onClick={toggle}/>
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto mr-auto" navbar>

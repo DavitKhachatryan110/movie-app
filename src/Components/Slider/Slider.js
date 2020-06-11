@@ -20,15 +20,14 @@ const styles = {
     }
 }
 
-const Slider = () => {
+const Slider = (props) => {
     const [items, setItems] = useState([]);
-    const [images, setImages] = useState([]);
     const [activeIndex, setActiveIndex] = useState(0);
     const [animating, setAnimating] = useState(false);
 
     useEffect(() => {
 
-        axios("https://api.themoviedb.org/3/movie/upcoming?api_key=e2bdf1adf27f9d4d32f149f3274aa754&language=en-US&page=1")
+        axios(props.url)
             .then(response => {
                 console.log(response.data.results)
                 setItems(response.data.results.map(data => ({
@@ -36,7 +35,7 @@ const Slider = () => {
                     backdrop_path: `https://image.tmdb.org/t/p/w500${data.backdrop_path}`,
                     genre_ids: data.genre_ids,
                     original_language: data.original_language,
-                    original_title: data.original_title,
+                    title: data.title,
                     overview: data.overview,
                     popularity: data.popularity,
                     poster_path: `https://image.tmdb.org/t/p/w500${data.poster_path}`,
@@ -71,13 +70,13 @@ const Slider = () => {
     const slides = items.map((item) => {
         return (
             <CarouselItem
-                className="custom-tag mt-4"
+                className="custom-tag mb-5"
                 onExiting={() => setAnimating(true)}
                 onExited={() => setAnimating(false)}
                 key={item.id}
             >
                 <img style={styles.center} src={item.backdrop_path}/>
-                <CarouselCaption captionText={item.release_date} captionHeader={item.original_title}/>
+                <CarouselCaption captionText={item.release_date.slice(0,4)} captionHeader={item.title}/>
             </CarouselItem>
         );
     });
@@ -89,7 +88,7 @@ const Slider = () => {
                     `.custom-tag {
                            max-width: 100%;
                            max-height: 400px;
-                           background: #0d2432;
+                           background: #0c1f28;
                          }`
                 }
             </style>
